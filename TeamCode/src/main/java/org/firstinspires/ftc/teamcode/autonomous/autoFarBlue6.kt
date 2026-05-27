@@ -27,8 +27,8 @@ class autoFarBlue6: LinearOpMode() {
         waitForStart()
 
         //Launch 3 balls
-        Turret.changeTargetVelocity(140.0)
-        Turret.moveToTick(396)
+        Turret.changeTargetVelocity(135.0)
+        Turret.moveToTick(390)
         Turret.launch()
         sleep(2000)
         TransferSystem.setTransferPwr(-1.0)
@@ -43,15 +43,19 @@ class autoFarBlue6: LinearOpMode() {
         Turret.stop()
         TransferSystem.setIntakePwr(-1.0)
         TransferSystem.setTransferPwr(-1.0)
+        Turret.launch(0.5)
         SpecterDrive.path(0.0, 60.0, 0.0, 2.75)
-        TransferSystem.setTransferPwr(-0.4)
+        TransferSystem.setTransferPwr(-0.35)
         TransferSystem.setIntakePwr(0.0)
         SpecterDrive.path(0.0, -42.0, 0.0, 2.5)
-        TransferSystem.setTransferPwr(-0.4)
+        TransferSystem.setTransferPwr(0.4)
+        TransferSystem.setIntakePwr(-0.67)
+//        TransferSystem.setTransferPwr(-0.4)
         SpecterDrive.path(-25.0, -0.0, 0.0, 1.0)
 
         //FIRE
-        Turret.moveToTick(420)
+
+        Turret.moveToTick(386)
         Turret.launch()
         sleep(1900)
         TransferSystem.setTransferPwr(-1.0)

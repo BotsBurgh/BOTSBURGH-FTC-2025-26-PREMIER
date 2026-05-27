@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.api.linear.SpecterDrive.otos
 import org.firstinspires.ftc.teamcode.utils.squared
 import kotlin.math.sqrt
 
-@Autonomous(name = "CLOSE BLUE")
+@Autonomous(name = "ballsballsballs")
 class autoCloseBlue9: LinearOpMode() {
     override fun runOpMode() {
         SpecterDrive.init(this)
@@ -78,7 +78,7 @@ class autoCloseBlue9: LinearOpMode() {
         Turret.changeTargetVelocity(66.9, true)
         TransferSystem.setIntakePwr(-1.0)
         TransferSystem.setTransferPwr(-1.0)
-        SpecterDrive.path(0.0, (5.5*12.0), 0.0, 2.75)
+        SpecterDrive.path(0.0, (5.5*12.0)-5, 0.0, 2.75)
         TransferSystem.intake()
         TransferSystem.reverseTransfer()
         SpecterDrive.path(0.0, -12.0, 0.0, 2.0)
@@ -90,19 +90,23 @@ class autoCloseBlue9: LinearOpMode() {
         SpecterDrive.path(0.0, -(5.5*12.0)-6.7+4.0, 0.0, 1.0)
 
         //Up
-        SpecterDrive.path(30.0, 0.0, 0.0, 1.5)
-        SpecterDrive.path(15.0, 0.0, 0.0, 1.5)
+        SpecterDrive.path(0.0, -15.0, 0.0, 1.5)
+
+        //Up
+        SpecterDrive.path(65.0, 0.0, 0.0, 1.5)
+
 
         //Fire and shut down
+        Turret.moveToTick(40)
         TransferSystem.setTransferPwr(-1.0)
         TransferSystem.setIntakePwr(1.0)
         sleep(2500)
         TransferSystem.setTransferPwr(0.0)
         TransferSystem.setIntakePwr(0.0)
 
-        //Up
-        SpecterDrive.path(0.0, -15.0, 0.0, 1.5)
 
+        //Up
+        SpecterDrive.path(15.0, 0.0, 0.0, 1.5)
 
 
         //Singleton logging
@@ -118,6 +122,7 @@ class autoCloseBlue9: LinearOpMode() {
         Singleton.tagTracking = 0
         Singleton.autoRan = true
         Turret.moveToTick(0)
+
 
     }
 }

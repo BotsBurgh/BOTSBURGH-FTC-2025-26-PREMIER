@@ -54,7 +54,7 @@ object Turret : API() {
      *
      */
 
-    val VISION_KP = 0.015
+    val VISION_KP = 0.023
     val VISION_KI = 0.0
     val VISION_KD = 0.000007
     private val deadband = 1.0
@@ -213,7 +213,7 @@ object Turret : API() {
     ) {
         aimer.targetPosition = targetTick
         aimer.mode = DcMotor.RunMode.RUN_TO_POSITION
-        aimer.power = abs(1.0)
+        aimer.power = abs(0.35)
     }
 
     /**
@@ -287,6 +287,8 @@ object Turret : API() {
             } else if (Singleton.team == "Red") {
                 Limelight.cam.pipelineSwitch(1)
             }
+//            light(0.33)
+
         } else if (67.0 < distance && distance < 115) {
             TARGET_VELOCITY =
                 0.00000223265 * dist * dist * dist * dist + 0.00160751 * dist * dist * dist - 0.465213 * dist.squared() + 41.41204 * dist
@@ -296,6 +298,8 @@ object Turret : API() {
                 Limelight.cam.pipelineSwitch(0)
             } else if (Singleton.team == "Red") {
                 Limelight.cam.pipelineSwitch(1)
+//                light(0.51)
+
             }
         } else {
             TARGET_VELOCITY = 0.0104982*distance*distance*distance-4.6502*distance.squared()+690.49907*distance-32779.3688
@@ -306,27 +310,27 @@ object Turret : API() {
                 Limelight.cam.pipelineSwitch(2)
             }
 
-//            light2(0.5)
+//            light(0.722)
         }
     }
 
-        fun changeTargetVelocity(distance: Double, auto: Boolean){
-            var dist = distance - 18
-            if(distance < 67.0){
-                TARGET_VELOCITY = 0.104167 * dist.squared() - 5.41667 * dist + 1040
-                moveHood(0.86)
-            }
-
-            else if(67.0 < distance && distance < 115){
-                TARGET_VELOCITY = 0.00000223265 * dist * dist * dist * dist + 0.00160751 * dist * dist * dist - 0.465213 * dist.squared() + 41.41204 * dist
-                moveHood(0.67)
-            }
-
-            else{
-                TARGET_VELOCITY = 0.0104982*distance*distance*distance-4.6502*distance.squared()+690.49907*distance-32779.3688
-                moveHood(0.47)
-            }
+    fun changeTargetVelocity(distance: Double, auto: Boolean){
+        var dist = distance - 18
+        if(distance < 67.0){
+            TARGET_VELOCITY = 0.104167 * dist.squared() - 5.41667 * dist + 1040
+            moveHood(0.86)
         }
+
+        else if(67.0 < distance && distance < 115){
+            TARGET_VELOCITY = 0.00000223265 * dist * dist * dist * dist + 0.00160751 * dist * dist * dist - 0.465213 * dist.squared() + 41.41204 * dist
+            moveHood(0.67)
+        }
+
+        else{
+            TARGET_VELOCITY = 0.0104982*distance*distance*distance-4.6502*distance.squared()+690.49907*distance-32779.3688
+            moveHood(0.47)
+        }
+    }
 
 
     fun powerAimerWithLimits(pwr: Double){

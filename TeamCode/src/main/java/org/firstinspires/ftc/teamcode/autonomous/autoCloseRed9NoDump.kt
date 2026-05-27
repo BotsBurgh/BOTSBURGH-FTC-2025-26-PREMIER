@@ -28,14 +28,10 @@ class autoCloseRed9NoDump: LinearOpMode() {
 
         RobotTracker.setPos(125.5, 118.5, 309.13, true)
 
-        Singleton.team = "Red"
-        Singleton.starting = "Close"
-        Singleton.tagTracking = 1
-        Singleton.autoRan = true
         waitForStart()
 
         //Move back and charge turret
-        Turret.changeTargetVelocity(90.0, true)
+        Turret.changeTargetVelocity(67.0, true)
         Turret.launch()
         TransferSystem.setIntakePwr(-1.0)
         SpecterDrive.path(0.0, -50.0, 0.0, 3.0)
@@ -52,16 +48,16 @@ class autoCloseRed9NoDump: LinearOpMode() {
         SpecterDrive.rotateToHeading(280.0, 0.7)
 
         //Forward and intake first 3 balls
-        Turret.moveToTick(-240)
+        Turret.moveToTick(-262)
         Turret.stop()
         TransferSystem.setIntakePwr(-1.0)
-        TransferSystem.setTransferPwr(-1.0)
+        TransferSystem.setTransferPwr(-0.75)
         SpecterDrive.path(0.0, (4.5*12.0), 0.0, 2.5)
-        TransferSystem.setIntakePwr(0.0)
         TransferSystem.setTransferPwr(0.0)
+        Turret.changeTargetVelocity(68.0, true)
         Turret.launch()
-        SpecterDrive.path(0.0, -(4.5*12.0), 0.0, 1.75)
-        Turret.changeTargetVelocity(80.0, true)
+        SpecterDrive.path(0.0, -50.0, 0.0, 1.75)
+        TransferSystem.setIntakePwr(0.0)
 
 
 
@@ -75,12 +71,12 @@ class autoCloseRed9NoDump: LinearOpMode() {
         Turret.launch(0.5)
 
         //Down
-        SpecterDrive.path(23.5, 0.0, 0.0, 1.5)
+        SpecterDrive.path(21.0, 0.0, 0.0, 1.5)
 
         //Forward and intake next 3 balls, hit classifier
         Turret.launch()
         Turret.stop()
-        Turret.changeTargetVelocity(75.0, true)
+        Turret.changeTargetVelocity(73.0, true)
         TransferSystem.setIntakePwr(-1.0)
         TransferSystem.setTransferPwr(-1.0)
         SpecterDrive.path(0.0, (5.5*12.0), 0.0, 2.75)

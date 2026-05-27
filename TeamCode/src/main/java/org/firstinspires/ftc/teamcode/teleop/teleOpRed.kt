@@ -21,6 +21,8 @@ class teleOpRed : OpMode() {
 
     var turretOn = false
     var lastCircle = false
+    var shootReady = false
+
 
     lateinit var goal: DoubleArray
 
@@ -38,9 +40,15 @@ class teleOpRed : OpMode() {
     }
 
     override fun loop() {
+
         //updates first
-        Turret.changeTargetVelocity(sqrt((goal[0]- RobotTracker.getPos(false)[0]).squared()+(goal[1]- RobotTracker.getPos(false)[1]).squared())+8)
-        //Turret.trackPos(RobotTracker.getPos(false), goal)
+        Turret.changeTargetVelocity(
+            sqrt(
+                (goal[0] - RobotTracker.getPos(false)[0]).squared() +
+                        (goal[1] - RobotTracker.getPos(false)[1]).squared()
+            ) + 8
+        )
+
         Limelight.update(Turret.aimer.currentPosition)
         telemetry.clear()
 
@@ -53,7 +61,7 @@ class teleOpRed : OpMode() {
 
         val joyMagnitude = sqrt(joyY * joyY + joyX * joyX)
 
-        val rotationPower = 0 -this.gamepad1.right_stick_x.toDouble()
+        val rotationPower = 0 - this.gamepad1.right_stick_x.toDouble()
 
         // movement of all wheels
         TriWheels.drive(
@@ -62,27 +70,27 @@ class teleOpRed : OpMode() {
             rotation = rotationPower * RobotConfig.TeleOpMain.ROTATE_SPEED,
         )
 
-
         //Toggle turret on and off
-        if (gamepad2.a){
+        if (gamepad2.a) {
             Turret.launchInTele(-0.15)
-        }
-        else if (gamepad2.circle && !lastCircle) {
+
+        } else if (gamepad2.circle && !lastCircle) {
             turretOn = !turretOn
 
-            if (turretOn) {
-                Turret.launch()
-                gamepad2.rumble(250)
-                gamepad1.rumble(250)
-
-            }
-            // turn on
-            else {
+            if (!turretOn) {
+                Turret.stop()
+            } else {
                 Turret.stop()
             }
-        }
-        else {
+
+        } else {
             Turret.stop()
+        }
+
+        // turn on
+        if (turretOn) {
+            Turret.launch()
+            gamepad1.rumble(250)
 
         }
 
@@ -90,20 +98,23 @@ class teleOpRed : OpMode() {
 
         //Update turret speed
         if (turretOn) {
+
             Turret.launch()
             gamepad2.rumble(250)
         }
 
-
         //rumble to show velocity
-        val veloEr = abs(Turret.launcherL.velocity + Turret.TARGET_VELOCITY)
-        val shootReady = veloEr < 50
+        var veloErRED =
+            abs(abs(Turret.launcherL.velocity) - Turret.TARGET_VELOCITY)
 
-        if(turretOn && shootReady){
-            Turret.light2(0.5)
+        if (veloErRED < 50) {
+            shootReady = true
+        } else {
+            shootReady = false
         }
-        else{
-            Turret.light2(0.28)
+
+        if (shootReady) {
+            gamepad1.rumble(250)
         }
 
         //buttons
@@ -124,43 +135,80 @@ class teleOpRed : OpMode() {
         }
 
         //limelight tracking
-        if (abs(gamepad2.left_stick_x/5) > 0.05) {
+        if (abs(gamepad2.left_stick_x / 4) > 0.05) {
+
             // Manual override
-            Turret.setAimerPower(gamepad2.left_stick_x/5.toDouble())
-        }
-        else if (Limelight.seesTag) {
+            Turret.setAimerPower(gamepad2.left_stick_x / 4.toDouble())
+
+        } else if (Limelight.seesTag) {
+
             Turret.setAimerPower(Turret.getTurretPower())
-        }
-        else {
+
+        } else {
+
             Turret.setAimerPower(0.0)
         }
 
-
-
-        if (!gamepad1.left_bumper && gamepad1.left_trigger.toDouble() == 0.0) {
+        if (!gamepad1.left_bumper &&
+            gamepad1.left_trigger.toDouble() == 0.0
+        ) {
             TransferSystem.setIntakePwr(0.0)
         }
 
-        if (!gamepad1.right_bumper && gamepad1.right_trigger.toDouble() == 0.0){
+        if (!gamepad1.right_bumper &&
+            gamepad1.right_trigger.toDouble() == 0.0
+        ) {
             TransferSystem.setTransferPwr(0.0)
         }
 
-        if(gamepad2.dpad_left){
+        if (gamepad2.dpad_left) {
             RobotTracker.setPos(72.0, 72.0, 0.0, false)
         }
 
-        if(gamepad2.dpad_up){
+        if (gamepad2.dpad_up) {
             RobotTracker.setPos(72.0, 135.0, 0.0, false)
         }
 
-        if(gamepad2.dpad_down){
+        if (gamepad2.dpad_down) {
             RobotTracker.setPos(72.0, 24.0, 0.0, false)
         }
 
-        telemetry.addData("Distance", sqrt((goal[0] - RobotTracker.getPos(false)[0]).squared()+(goal[1]- RobotTracker.getPos(false)[1]).squared()))
-        telemetry.addData("Velocity", Turret.launcherL.velocity)
-        telemetry.addData("tick", Turret.aimer.currentPosition)
+        if (
+            gamepad2.dpad_left ||
+            gamepad2.dpad_up ||
+            gamepad2.dpad_down ||
+            gamepad2.dpad_right
+        ) {
 
+            Turret.light(0.75)
+            Turret.light2(0.75)
+
+        } else {
+
+            if (gamepad2.a) {
+                Turret.light2(0.676)
+            } else if (turretOn) {
+                Turret.light2(0.5)
+            } else {
+                Turret.light2(0.3)
+            }
+
+            if (Limelight.seesTag) {
+                Turret.light(0.5)
+            } else {
+                Turret.light(0.3)
+            }
+        }
+
+        telemetry.addData(
+            "Distance",
+            sqrt(
+                (goal[0] - RobotTracker.getPos(false)[0]).squared() +
+                        (goal[1] - RobotTracker.getPos(false)[1]).squared()
+            )
+        )
+
+        telemetry.addData("tick", Turret.aimer.currentPosition)
         telemetry.addData("X", RobotTracker.getPos(false)[0])
         telemetry.addData("Y", RobotTracker.getPos(false)[1])
         telemetry.addData("H", RobotTracker.getPos(false)[2])
