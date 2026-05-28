@@ -53,7 +53,7 @@ class teleOpBlue : OpMode() {
                 (goal[0] - RobotTracker.getPos(false)[0]).squared() + (goal[1] - RobotTracker.getPos(
                     false
                 )[1]).squared()
-            ) + 8
+            ) + 3
         )
         //Turret.trackPos(RobotTracker.getPos(false), goal)
         Limelight.update(Turret.aimer.currentPosition)
@@ -80,7 +80,7 @@ class teleOpBlue : OpMode() {
 
         //Toggle turret on and off
         if (gamepad2.a) {
-            Turret.launchInTele(-0.25)
+            Turret.launchInTele(-0.15)
 
         } else if (gamepad2.circle && !lastCircle) {
             turretOn = !turretOn
@@ -118,8 +118,6 @@ class teleOpBlue : OpMode() {
 
         }
 
-
-        //rumble to show velocity
         var veloErBLUE = abs(abs(Turret.launcherL.velocity) - Turret.TARGET_VELOCITY)
         if (veloErBLUE < 50) {
             shootReady = true

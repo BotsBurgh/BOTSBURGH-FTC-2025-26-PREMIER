@@ -48,15 +48,15 @@ class autoCloseRed9: LinearOpMode() {
         SpecterDrive.rotateToHeading(280.0, 0.7)
 
         //Forward and intake first 3 balls
-        Turret.moveToTick(-251)
+        Turret.moveToTick(-261)
         Turret.stop()
         TransferSystem.setIntakePwr(-1.0)
         TransferSystem.setTransferPwr(-0.75)
         SpecterDrive.path(0.0, (4.5*12.0), 0.0, 2.5)
-        TransferSystem.setTransferPwr(0.0)
         Turret.changeTargetVelocity(68.0, true)
+        TransferSystem.setTransferPwr(0.0)
         Turret.launch()
-        SpecterDrive.path(0.0, -50.0, 0.0, 1.75)
+        SpecterDrive.path(0.0, -55.0, 0.0, 2.0)
         TransferSystem.setIntakePwr(0.0)
 
 
@@ -77,7 +77,7 @@ class autoCloseRed9: LinearOpMode() {
         Turret.launch()
         Turret.stop()
         TransferSystem.setIntakePwr(-1.0)
-        TransferSystem.setTransferPwr(-1.0)
+        TransferSystem.setTransferPwr(-0.75)
         SpecterDrive.path(0.0, (5.5*12.0), 0.0, 3.0)
         TransferSystem.intake()
         TransferSystem.reverseTransfer()
@@ -87,7 +87,7 @@ class autoCloseRed9: LinearOpMode() {
         SpecterDrive.path(-12.0, 0.0, 0.0, 2.0)
         SpecterDrive.path(0.0, 18.0, 0.0, 1.0)
         Turret.launch(0.5)
-        SpecterDrive.path(0.0, -(5.5*12.0)-6.7, 0.0, 1.5)
+        SpecterDrive.path(0.0, -(5.5*12.0)-8.7, 0.0, 1.5)
         Turret.changeTargetVelocity(65.69, true)
 
         Turret.launch()
@@ -98,7 +98,7 @@ class autoCloseRed9: LinearOpMode() {
         //Fire and shut down
         TransferSystem.setTransferPwr(-1.0)
         TransferSystem.setIntakePwr(1.0)
-        sleep(2500)
+        sleep(4000)
         TransferSystem.setTransferPwr(0.0)
         TransferSystem.setIntakePwr(0.0)
         //Up

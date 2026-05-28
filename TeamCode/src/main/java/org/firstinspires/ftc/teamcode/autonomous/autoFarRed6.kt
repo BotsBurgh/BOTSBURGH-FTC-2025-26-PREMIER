@@ -25,8 +25,7 @@ class autoFarRed6: LinearOpMode() {
         waitForStart()
 
         //Launch 3 balls
-        Turret.changeTargetVelocity(140.0)
-
+        Turret.changeTargetVelocity(135.0)
         Turret.moveToTick(-390)
         Turret.launch()
         sleep(2000)
@@ -44,7 +43,7 @@ class autoFarRed6: LinearOpMode() {
         Turret.stop()
         TransferSystem.setIntakePwr(-1.0)
         TransferSystem.setTransferPwr(-0.75)
-        SpecterDrive.path(0.0, 60.0, 0.0, 3.0)
+        SpecterDrive.path(0.0, 55.0, 0.0, 3.0)
         TransferSystem.setTransferPwr(-0.9)
         TransferSystem.setIntakePwr(-1.0)
         SpecterDrive.path(0.0, -43.0, 0.0, 2.5)
@@ -66,7 +65,7 @@ class autoFarRed6: LinearOpMode() {
         //Stop
         TransferSystem.setIntakePwr(0.0)
         TransferSystem.setTransferPwr(0.0)
-        SpecterDrive.path(-18.0, 0.0, 0.0, 1.0)
+        SpecterDrive.path(-24.0, 0.0, 0.0, 1.0)
 
         //Singleton logging
         Singleton.autoRan = true

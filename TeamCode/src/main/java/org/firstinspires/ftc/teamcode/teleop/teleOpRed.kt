@@ -46,7 +46,7 @@ class teleOpRed : OpMode() {
             sqrt(
                 (goal[0] - RobotTracker.getPos(false)[0]).squared() +
                         (goal[1] - RobotTracker.getPos(false)[1]).squared()
-            ) + 8
+            ) +8
         )
 
         Limelight.update(Turret.aimer.currentPosition)
@@ -104,9 +104,7 @@ class teleOpRed : OpMode() {
         }
 
         //rumble to show velocity
-        var veloErRED =
-            abs(abs(Turret.launcherL.velocity) - Turret.TARGET_VELOCITY)
-
+        var veloErRED = abs(abs(Turret.launcherL.velocity) - Turret.TARGET_VELOCITY)
         if (veloErRED < 50) {
             shootReady = true
         } else {
@@ -115,6 +113,7 @@ class teleOpRed : OpMode() {
 
         if (shootReady) {
             gamepad1.rumble(250)
+
         }
 
         //buttons

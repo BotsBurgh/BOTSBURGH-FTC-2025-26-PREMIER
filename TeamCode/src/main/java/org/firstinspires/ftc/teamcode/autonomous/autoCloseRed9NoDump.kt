@@ -31,7 +31,7 @@ class autoCloseRed9NoDump: LinearOpMode() {
         waitForStart()
 
         //Move back and charge turret
-        Turret.changeTargetVelocity(67.0, true)
+        Turret.changeTargetVelocity(70.0, true)
         Turret.launch()
         TransferSystem.setIntakePwr(-1.0)
         SpecterDrive.path(0.0, -50.0, 0.0, 3.0)
@@ -48,15 +48,15 @@ class autoCloseRed9NoDump: LinearOpMode() {
         SpecterDrive.rotateToHeading(280.0, 0.7)
 
         //Forward and intake first 3 balls
-        Turret.moveToTick(-262)
+        Turret.moveToTick(-261)
         Turret.stop()
         TransferSystem.setIntakePwr(-1.0)
         TransferSystem.setTransferPwr(-0.75)
         SpecterDrive.path(0.0, (4.5*12.0), 0.0, 2.5)
-        TransferSystem.setTransferPwr(0.0)
         Turret.changeTargetVelocity(68.0, true)
+        TransferSystem.setTransferPwr(0.0)
         Turret.launch()
-        SpecterDrive.path(0.0, -50.0, 0.0, 1.75)
+        SpecterDrive.path(0.0, -55.0, 0.0, 1.75)
         TransferSystem.setIntakePwr(0.0)
 
 

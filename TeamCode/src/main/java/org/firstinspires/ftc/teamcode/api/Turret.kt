@@ -54,10 +54,10 @@ object Turret : API() {
      *
      */
 
-    val VISION_KP = 0.023
+    val VISION_KP = 0.02
     val VISION_KI = 0.0
-    val VISION_KD = 0.000007
-    private val deadband = 1.0
+    val VISION_KD = 0.000009
+    private val deadband = 0.3
     private var lastError = 0.0
     private var integralSum = 0.0
     private var lastTime = System.currentTimeMillis()
@@ -287,8 +287,6 @@ object Turret : API() {
             } else if (Singleton.team == "Red") {
                 Limelight.cam.pipelineSwitch(1)
             }
-//            light(0.33)
-
         } else if (67.0 < distance && distance < 115) {
             TARGET_VELOCITY =
                 0.00000223265 * dist * dist * dist * dist + 0.00160751 * dist * dist * dist - 0.465213 * dist.squared() + 41.41204 * dist
@@ -298,11 +296,9 @@ object Turret : API() {
                 Limelight.cam.pipelineSwitch(0)
             } else if (Singleton.team == "Red") {
                 Limelight.cam.pipelineSwitch(1)
-//                light(0.51)
-
             }
         } else {
-            TARGET_VELOCITY = 0.0104982*distance*distance*distance-4.6502*distance.squared()+690.49907*distance-32779.3688
+            TARGET_VELOCITY = 0.0104982*distance*distance*distance-4.6502*distance.squared()+690.49907*distance-32765.3688
             moveHood(0.47)
             if (Singleton.team == "Blue") {
                 Limelight.cam.pipelineSwitch(3)
@@ -310,7 +306,7 @@ object Turret : API() {
                 Limelight.cam.pipelineSwitch(2)
             }
 
-//            light(0.722)
+//            light2(0.5)
         }
     }
 
@@ -327,7 +323,7 @@ object Turret : API() {
         }
 
         else{
-            TARGET_VELOCITY = 0.0104982*distance*distance*distance-4.6502*distance.squared()+690.49907*distance-32779.3688
+            TARGET_VELOCITY = 0.0104982*distance*distance*distance-4.6502*distance.squared()+690.49907*distance-32765.3688
             moveHood(0.47)
         }
     }
